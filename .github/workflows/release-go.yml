@@ -70,11 +70,11 @@ jobs:
           go get -v -t -d ./...
       - name: Build
         run: |
-          echo $BINARY
-          go build -o $BINARY
+          echo $env:BINARY
+          go build -o $env:BINARY
           ls
           mkdir release
-          mv $BINARY release
+          mv $env:BINARY release
         env:
           BINARY: ${{ inputs.name }}.exe
 
