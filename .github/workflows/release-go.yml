@@ -27,11 +27,14 @@ jobs:
           sudo apt install xcb libxcb-xkb-dev x11-xkb-utils libx11-xcb-dev libxkbcommon-x11-dev
           sudo apt install libxkbcommon-dev
           sudo apt install xsel xclip
+
       - name: Get dependencies
         run: |
           go get -v -t -d ./...
+
       - name: Build
         run: |
+          echo $BINARY
           go build -o $BINARY
           chmod a+x ./$BINARY
           tar -czvf ${BINARY}.tar.gz ./$BINARY
@@ -40,6 +43,7 @@ jobs:
           mv ${BINARY}.tar.gz release
         env:
           BINARY: ${{ inputs.name }}-linux-amd64
+
       - name: Test
         run: go test -v ./...
 
@@ -66,6 +70,7 @@ jobs:
           go get -v -t -d ./...
       - name: Build
         run: |
+          echo $BINARY
           go build -o $BINARY
           ls
           mkdir release
@@ -97,14 +102,17 @@ jobs:
       - name: Get dependencies
         run: |
           go get -v -t -d ./...
+
       - name: Build
         run: |
+          echo $BINARY
           go build -o $BINARY
           chmod a+x ./$BINARY
           mkdir release
           mv $BINARY release
         env:
           BINARY: ${{ inputs.name }}-macos
+
       - name: Test
         run: go test -v ./...
 
